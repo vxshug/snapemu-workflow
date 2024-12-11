@@ -1,12 +1,15 @@
-<!-- 请务必在创建PR前，在右侧 Labels 选项中加上label的其中一个: [feature]、[fix]、[documentation] 。以便于Actions自动生成Releases时自动对PR进行归类。-->
+<!-- Please be sure to add one of the labels: [feature], [fix], [documentation] in the Labels option on the right before creating a PR. This will help to automatically categorize the PR when Actions automatically generates Releases. -->
 
-**在提出此拉取请求时，我确认了以下几点（请复选框）：**
+**When making this pull request, I confirm the following points (please check the box):**
 
-- [ ] 我已阅读并理解[贡献者指南]()。
-- [ ] 我已检查没有与此请求重复的拉取请求。
-- [ ] 我已经考虑过，并确认这份呈件对其他人很有价值。
-- [ ] 我接受此提交可能不会被使用，并根据维护人员的意愿关闭拉取请求。
+- [ ] I have read and understood the [Contributor Guidelines]().
 
-**填写 PR 内容：**
+- [ ] I have checked that there are no pull requests that duplicate this request.
+
+- [ ] I have considered and confirmed that this submission is valuable to others.
+
+- [ ] I accept that this submission may not be used and close the pull request at the wishes of the maintainer.
+
+**Fill in the PR content:**
 
 -
