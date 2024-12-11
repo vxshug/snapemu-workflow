@@ -104,5 +104,7 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
+        prerelease: ${{ startsWith(github.ref_name, 'b') }}
+        draft: ${{ startsWith(github.ref_name, 'a') }}
         generate_release_notes: true
         files: ${{ steps.assets.outputs.release }}
