@@ -30,5 +30,7 @@ jobs:
           cosign-release: 'v2.2.4'
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
+      - uses: docker/setup-qemu-action@v3.2.0
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v1
+      
