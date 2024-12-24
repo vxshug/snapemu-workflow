@@ -13,8 +13,10 @@ env:
   AILIYUN_REGISTRY: registry.cn-hongkong.aliyuncs.com
   AILIYUN_MANAGER_IMAGE_NAME: snap_emu/manager
   AILIYUN_API_IMAGE_NAME: snap_emu/api
+  AILIYUN_WEB_IMAGE_NAME: snap_emu/web
   MANAGER_IMAGE_NAME: heltec/snapemu-manager
   API_IMAGE_NAME: heltec/snapemu-api
+  WEB_IMAGE_NAME: heltec/snapemu-web
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -61,6 +63,11 @@ jobs:
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.API_IMAGE_NAME }}
+      - name: Extract Docker metadata
+        id: meta-web
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.WEB_IMAGE_NAME }}
       - name: Extract Aliyun Docker metadata
         id: aliyun-meta-manager
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
@@ -71,7 +78,11 @@ jobs:
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
           images: ${{ env.AILIYUN_REGISTRY }}/${{ env.AILIYUN_API_IMAGE_NAME }}
-          
+      - name: Extract Aliyun Docker metadata
+        id: aliyun-meta-web
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+        with:
+          images: ${{ env.AILIYUN_REGISTRY }}/${{ env.AILIYUN_WEB_IMAGE_NAME }}
       - name: Print tags
         env:
           TAGS: ${{ steps.meta-manager.outputs.tags }} ${{ steps.meta-api.outputs.tags }}
@@ -113,7 +124,19 @@ jobs:
           COPY --from=builder /devices_manager ./
           CMD [ "./devices_manager" ]
           EOF
-        
+          
+          cat <<"EOF" > Dockerfile.web
+          FROM --platform=$BUILDPLATFORM caddy:2.8.4-alpine
+          ARG TARGETPLATFORM
+          ARG BUILDPLATFORM
+          COPY snapemu-web/dist /var/www/html
+          CMD ["caddy" "run" "--config" "/etc/caddy/Caddyfile" "--adapter" "caddyfile"]
+          EOF
+      - name: Build Web
+        run: | 
+          cd snapemu-web
+          npm install
+          npm run build
       - name: Build and push manager Docker image
         id: build-and-push
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
@@ -136,6 +159,18 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-api.outputs.tags }}
           labels: ${{ steps.meta-api.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build and push api Docker image
+        id: build-and-push-web
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: .
+          file: Dockerfile.web
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta-web.outputs.tags }}
+          labels: ${{ steps.meta-web.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Build and push manager Docker image
@@ -162,6 +197,19 @@ jobs:
           labels: ${{ steps.aliyun-meta-api.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Build and push api Docker image
+        id: aliyun-build-and-push-web
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: .
+          file: Dockerfile.web
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.aliyun-meta-web.outputs.tags }}
+          labels: ${{ steps.aliyun-meta-web.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
 
 
 
