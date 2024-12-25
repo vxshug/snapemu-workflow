@@ -126,7 +126,7 @@ jobs:
           EOF
           
           cat <<"EOF" > Dockerfile.web
-          FROM --platform=$BUILDPLATFORM caddy:2.8.4-alpine
+          FROM --platform=$TARGETPLATFORM caddy:2.8.4-alpine
           ARG TARGETPLATFORM
           ARG BUILDPLATFORM
           COPY snapemu-web/dist /var/www/html
