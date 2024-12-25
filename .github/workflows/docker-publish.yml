@@ -130,7 +130,6 @@ jobs:
           ARG TARGETPLATFORM
           ARG BUILDPLATFORM
           COPY snapemu-web/dist /var/www/html
-          CMD ["caddy" "run" "--config" "/etc/caddy/Caddyfile" "--adapter" "caddyfile"]
           EOF
       - name: Build Web
         run: | 
