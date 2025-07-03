@@ -1,0 +1,27 @@
+FROM debian:stable-20230904-slim AS api
+WORKDIR /usr/src/app
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		ca-certificates \
+	; \
+	rm -rf /var/lib/apt/lists/*
+
+COPY  .lib/libcrypto.so.3 /lib/x86_64-linux-gnu/
+COPY  .lib/libssl.so.3 /lib/x86_64-linux-gnu/
+COPY target/release/snap_api ./
+CMD [ "./snap_api" ]
+
+FROM debian:stable-20230904-slim AS manager
+WORKDIR /usr/src/app
+COPY  .lib/libcrypto.so.3 /lib/x86_64-linux-gnu/
+COPY  .lib/libssl.so.3 /lib/x86_64-linux-gnu/
+COPY target/release/devices_manager ./
+CMD [ "./devices_manager" ]
+
+FROM debian:stable-20230904-slim AS lorawan-bridge
+WORKDIR /usr/src/app
+COPY  .lib/libcrypto.so.3 /lib/x86_64-linux-gnu/
+COPY  .lib/libssl.so.3 /lib/x86_64-linux-gnu/
+COPY target/release/lorawan_bridge ./
+CMD [ "./lorawan_bridge" ]

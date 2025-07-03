@@ -1,0 +1,65 @@
+name: Publish Docker
+
+on:
+  workflow_dispatch:
+env:
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install cosign
+        if: github.event_name != 'pull_request'
+        uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20 #v3.5.0
+        with:
+          cosign-release: 'v2.2.4'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
+      - uses: docker/setup-qemu-action@v3.2.0
+
+      - name: Setup Dockerfile
+        run: | 
+          cat <<"EOF" > Dockerfile
+          FROM --platform=$BUILDPLATFORM rust:1.83.0-alpine3.21 AS builder
+          ARG TARGETPLATFORM
+          ARG BUILDPLATFORM
+          ENV RUST_BACKTRACE=1
+          ENV SNAPEMU_DEVICE_VERSION=v1
+          ENV SNAPEMU_API_VERSION=v1
+          WORKDIR /usr/src/app
+          COPY . .
+          RUN apk add --no-cache musl-dev pkgconfig make perl protoc curl patch bash python3 g++ gcompat
+          RUN set -eux; \
+              case "$TARGETPLATFORM" in \
+                "linux/amd64") rustArch='x86_64-unknown-linux-musl';; \
+                "linux/arm64") rustArch='aarch64-unknown-linux-musl'; \
+                    wget https://resource.heltec.cn/download/snapemu-dep/aarch64-linux-musl-cross.tgz; \
+                    tar xf aarch64-linux-musl-cross.tgz; \
+                    export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER="$PWD/aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc";; \
+                *) echo >&2 "unsupported architecture: $TARGETPLATFORM"; exit 1 ;; \
+              esac; \
+              rustup target add ${rustArch}; \
+              cargo build  --target=${rustArch} --release; \
+              cp target/${rustArch}/release/snap_api /snap_api; \
+              cp target/${rustArch}/release/devices_manager /devices_manager;
+          
+          FROM alpine:3.20.0 AS api
+          WORKDIR /usr/src/app
+          
+          COPY --from=builder /snap_api ./
+          CMD [ "./snap_api" ]
+          
+          FROM alpine:3.20.0 AS manager
+          WORKDIR /usr/src/app
+          COPY --from=builder /devices_manager ./
+          CMD [ "./devices_manager" ]
+          EOF
+
+      - name: Setup tmate session
+        uses: csexton/debugger-action@master

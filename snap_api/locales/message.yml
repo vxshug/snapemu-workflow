@@ -1,0 +1,314 @@
+_version: 2
+messages.user.util:
+  base64:
+    en: "Decoding failure"
+    zh: "解码失败"
+messages.user.access:
+  access_timeout:
+    en: "access token have expired"
+    zh: "access token 已过期"
+  access_disabled:
+    en: "access token Disabled"
+    zh: "access token 已禁用"
+  refresh_timeout:
+    en: "refresh token have expired"
+    zh: "refresh token 已过期"
+  refresh_disabled:
+    en: "access token Disabled"
+    zh: "access token 已禁用"
+messages.user.login:
+  error:
+    en: "The user name or password is incorrect"
+    zh: "用户名或密码错误"
+  unfounded:
+    en: "User %{name} is not registered"
+    zh: "用户 %{name} 未注册"
+  email_verify:
+    en: "Email %{email} is not activated, please check the email verification code"
+    zh: "邮箱 %{email} 未激活，请检查邮箱验证码"
+  auth_begin:
+    en: "Request header Authorization starts with Bearer"
+    zh: "请求头 Authorization 以Bearer开始"
+  token_err:
+    en: "invalid token"
+    zh: "无效 token"
+  already_active:
+    en: "User activated"
+    zh: "用户已激活"
+  active:
+    en: "User activation succeeded"
+    zh: "用户激活成功"
+  active_invalid:
+    en: "Invalid activation code"
+    zh: "无效激活码"
+messages.user.info:
+  not_found:
+    en: "No user found"
+    zh: "未发现用户"
+messages.user.reset_password:
+  password:
+    en: "Missing password"
+    zh: "缺少密码"
+  old_password:
+    en: "Missing original password"
+    zh: "缺少原始密码"
+  short:
+    en: "Password is too short"
+    zh: "密码太短"
+messages.user.signup:
+  not_found_email:
+    en: "email %{email} is not registered"
+    zh: "邮箱 %{email} 未注册"
+  not_valid_code:
+    en: "Invalid captcha"
+    zh: "无效验证码"
+  email_limit:
+    en: "Too many emails sent, please try again later"
+    zh: "邮箱发送太多了, 请稍后再试"
+  email_send_success:
+    en: "The email was sent successfully. Please check your mailbox"
+    zh: "邮件发送成功, 请查看邮箱"
+  email_send_error:
+    en: "e-mail sending failed"
+    zh: "邮件发送失败"
+  success:
+    en: "Register successfully, please open the email to activate the user"
+    zh: "注册成功请打开邮箱，激活用户"
+  name_exist:
+    en: "User name %{name} already exists"
+    zh: "用户名 %{name} 已经存在"
+  email_exist:
+    en: "email %{email} already exists"
+    zh: "邮箱 %{email} 已经存在"
+  email_format:
+    en: "The format of email %{email} is incorrect"
+    zh: "邮箱 %{email} 格式错误"
+  name_format:
+    en: "用户名 %{name} 格式错误"
+    zh: "用户名 %{name} 格式错误"
+  password_format:
+    en: "密码太弱"
+    zh: "密码太弱"
+  inert_user:
+    en: "创建用户 %{username} 失败"
+    zh: "创建用户 %{username} 失败"
+  already_active:
+    en: "用户已经激活"
+    zh: "用户已经激活"
+messages.user.picture:
+  format:
+    en: "仅支持 webp, png和jpeg格式图片"
+    zh: "仅支持 webp, png和jpeg格式图片"
+  network:
+    en: "上传失败"
+    zh: "上传失败"
+  write:
+    en: "图片写入失败"
+    zh: "图片写入失败"
+  large:
+    en: "图片最大5M"
+    zh: "图片最大5M"
+  unfounded:
+    en: "未发现图片"
+    zh: "未发现图片"
+  content_type_err:
+    en: "content_type 有误"
+    zh: "content_type 有误"
+messages.user.data:
+  time_range:
+    en: "时间区间最大1周"
+    zh: "时间区间最大1周"
+  time_start_end:
+    en: "结束时间必须大于开始时间"
+    zh: "结束时间必须大于开始时间"
+messages.device:
+  create_success:
+    en: "设备创建成功"
+    zh: "设备创建成功"
+  delete_success:
+    en: "设备删除成功"
+    zh: "设备删除成功"
+messages.device.group:
+  create_success:
+    en: "设备组创建成功"
+    zh: "设备组创建成功"
+  delete_success:
+    en: "设备组删除成功"
+    zh: "设备组删除成功"
+  delete_device:
+    en: "移除设备成功"
+    zh: "移除设备成功"
+  link_device:
+    en: "添加设备成功"
+    zh: "添加设备成功"
+  link_device_error:
+    en: "添加设备失败"
+    zh: "添加设备失败"
+  invalid:
+    en: "无效分组"
+    zh: "无效分组"
+messages.device.control:
+    set_gpio:
+      en: "设置失败"
+      zh: "设置失败"
+    set_timer:
+      en: "设置失败"
+      zh: "设置失败"
+    flush:
+      en: "设置失败"
+      zh: "设置失败"
+messages.device.common:
+  control:
+    set_gpio:
+      en: "设置失败"
+      zh: "设置失败"
+  not_found_device:
+    en: "设备 %{device_id} 没有注册"
+    zh: "设备 %{device_id} 没有注册"
+  search_device_error:
+    en: "查询设备设备, 设备eui: %{eui}"
+    zh: "查询设备设备, 设备eui: %{eui}"
+  device_missing:
+    en: "设备 %{device_id} 没有发现"
+    zh: "设备 %{device_id} 没有发现"
+  device_already:
+    en: "设备 %{eui} 已经存在"
+    zh: "设备 %{eui} 已经存在"
+  eui_missing:
+    en: "Please enter eui"
+    zh: "请输入eui"
+  eui_format:
+    en: "eui 格式错误"
+    zh: "eui 格式错误"
+  eui_not_found:
+    en: "eui未绑定设备 %{eui}"
+    zh: "eui未绑定设备 %{eui}"
+  eui_found_err:
+    en: "eui查询错误 %{eui}"
+    zh: "eui查询错误 %{eui}"
+  region_missing:
+    en: "请输入region"
+    zh: "请输入region"
+messages.device.lora:
+  blue_param_missing:
+    en: "缺少 blue_param"
+    zh: "缺少 blue_param"
+  join_type_missing:
+    en: "join_type 未知"
+    zh: "join_type 未知"
+  join_parameter_missing:
+    en: "join_parameter 未知"
+    zh: "join_parameter 未知"
+  app_skey:
+    en: "app_skey 是32个16进制字符"
+    zh: "app_skey 是32个16进制字符"
+  app_skey_missing:
+    en: "abp 入网方式需要 app_skey"
+    zh: "abp 入网方式需要 app_skey"
+  nwk_skey:
+    en: "nwk_skey 是32个16进制字符"
+    zh: "nwk_skey 是32个16进制字符"
+  nwk_skey_missing:
+    en: "abp 入网方式需要 nwk_skey"
+    zh: "abp 入网方式需要 nwk_skey"
+  dev_addr:
+    en: "nwk_skey 是8个16进制字符"
+    zh: "nwk_skey 是8个16进制字符"
+  dev_addr_format:
+    en: "dev_addr 格式错误"
+    zh: "dev_addr 格式错误"
+  dev_addr_missing:
+    en: "abp 入网方式需要 dev_addr"
+    zh: "abp 入网方式需要 dev_addr"
+  dev_addr_reserve:
+    en: "dev_addr 最高位不能为1"
+    zh: "dev_addr 最高位不能为1"
+  dev_addr_already:
+    en: "dev_addr: %{addr} 已经存在"
+    zh: "dev_addr: %{addr} 已经存在"
+  dev_addr_otaa:
+    en: "dev_addr 小于0x2000000是OTAA地址"
+    zh: "dev_addr 小于0x2000000是OTAA地址"
+  app_key:
+    en: "app_key 是32个16进制字符"
+    zh: "app_key 是32个16进制字符"
+  app_key_missing:
+    en: "otaa 入网方式需要 app_key"
+    zh: "otaa 入网方式需要 app_key"
+  app_eui:
+    en: "app_eui 是16个16进制字符"
+    zh: "app_eui 是16个16进制字符"
+  app_eui_missing:
+    en: "otaa 入网方式需要 app_eui"
+    zh: "otaa 入网方式需要 app_eui"
+  dev_eui_already:
+    en: "dev_eui: %{eui} 已经存在"
+    zh: "dev_eui: %{eui} 已经存在"
+  device_already:
+    en: "设备已存在"
+    zh: "设备已存在"
+  device_missing:
+    en: "设备不存在"
+    zh: "设备不存在"
+  dev_eui:
+    en: "dev_eui 是16个16进制字符"
+    zh: "dev_eui 是16个16进制字符"
+  dev_eui_match:
+    en: "dev_eui 不匹配"
+    zh: "dev_eui 不匹配" 
+  dev_eui_missing:
+    en: "otaa 入网方式需要 dev_eui"
+    zh: "otaa 入网方式需要 dev_eui"
+  gate_eui_format:
+    en: "eui 是16个16进制字符"
+    zh: "eui 是16个16进制字符"
+  gate_eui_reserve:
+    en: "eui 不能以736E6170开始"
+    zh: "eui 不能以736E6170开始"
+  gate_eui:
+    en: "网关eui: %{eui} ,已经存在"
+    zh: "网关eui: %{eui} ,已经存在"
+  gate_missing:
+    en: "网关不存在"
+    zh: "网关不存在"
+messages.device.snap:
+  eui_missing:
+    en: "eui Not Found"
+    zh: "eui不存在"
+messages.device.mqtt:
+  username_missing:
+    en: "缺少mqtt用户名"
+    zh: "缺少mqtt用户名"
+  password_missing:
+    en: "缺少mqtt密码"
+    zh: "缺少mqtt密码"
+  not_found_device:
+    en: "未发现设备"
+    zh: "未发现设备"
+messages.device.log:
+  stream_decode:
+    en: "序列化失败"
+    zh: "序列化失败"
+  stream_err:
+    en: "日志系统出错"
+    zh: "日志系统出错"
+messages.device.decode:
+  index:
+    en: "排序错误"
+    zh: "排序错误"
+  associated_device:
+    en: "排序错误"
+    zh: "排序错误"
+  id_missing:
+    en: "缺少设备id"
+    zh: "缺少设备id"
+  not_found_script:
+    en: "未发现脚本"
+    zh: "未发现脚本"
+  type_unable_change:
+    en: "数据id: %{id} 的类型不可变"
+    zh: "数据id: %{id} 的类型不可变"
+  delete_error:
+    en: "脚本删除失败"
+    zh: "脚本删除失败"
+    

@@ -1,0 +1,3 @@
+[submodule "SnapEmu-Device"]
+	path = SnapEmu-Device
+	url = https://github.com/HelTecAutomation/SnapEmu-Device.git

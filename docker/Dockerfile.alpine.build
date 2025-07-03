@@ -1,0 +1,18 @@
+FROM rust:1.81.0-alpine3.20 AS builder
+ENV RUST_BACKTRACE 1
+RUN apk add musl-dev pkgconfig make perl protoc openssl-dev curl patch bash python3 g++ gcompat
+#RUN update-ca-certificates
+WORKDIR /usr/src/app
+COPY . .
+RUN cargo build --release
+
+FROM alpine:3.20.0 AS api
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app/target/release/snap_api ./
+CMD [ "./snap_api" ]
+
+FROM alpine:3.20.0 AS manager
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/target/release/devices_manager ./
+CMD [ "./devices_manager" ]

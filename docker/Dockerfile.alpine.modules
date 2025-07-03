@@ -1,0 +1,16 @@
+FROM alpine:3.20.0 AS api
+WORKDIR /usr/src/app
+
+COPY target/release/snap_api ./
+CMD [ "./snap_api" ]
+
+FROM alpine:3.20.0 AS manager
+WORKDIR /usr/src/app
+COPY target/release/devices_manager ./
+CMD [ "./devices_manager" ]
+
+FROM alpine:3.20.0 AS lorawan-bridge
+WORKDIR /usr/src/app
+COPY target/release/lorawan_bridge ./
+CMD [ "./lorawan_bridge" ]
+

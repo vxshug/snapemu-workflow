@@ -1,0 +1,76 @@
+[package]
+name = "snap_api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+device_info.workspace = true
+snap_config.workspace = true
+snap_model.workspace = true
+snap_i18n.workspace = true
+snap_proto.workspace = true
+rust-i18n.workspace = true
+common_define.workspace = true
+utils.workspace = true
+image.workspace = true
+arc-swap.workspace = true
+clap = { workspace = true, features = [ "derive", "env" ] }
+sea-orm = { workspace = true, features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros", "debug-print" ] }
+jwt.workspace = true
+tokio = { workspace = true, features = ["full"]}
+tokio-stream = { workspace = true, features = ["sync"]}
+serde = { workspace = true, features = ["derive"] }
+async-graphql = { workspace = true, features = ["tokio", "uuid", "chrono"] }
+axum = { workspace = true, features = ["multipart"] }
+axum-extra= { workspace = true, features = ["typed-header"] }
+utoipa-axum = { workspace = true }
+tower-http = { workspace = true, features = ["cors", "fs", "limit", "trace"] }
+accept-language.workspace = true
+reqwest = { workspace = true, default-features = false, features = [ "multipart", "json"]  }
+rust-embed = { workspace = true, features = [ "include-exclude"] }
+redis = { workspace = true, features = ["tokio-comp"] }
+deadpool-redis.workspace = true
+deadpool.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+itertools.workspace = true
+lettre = { workspace = true, default-features = false, features = ["smtp-transport", "tokio1-rustls-tls","hostname", "pool", "builder"] }
+uuid.workspace = true
+migration.workspace = true
+once_cell.workspace = true
+const_format.workspace = true
+derive_more.workspace = true
+derive-new.workspace = true
+futures-util.workspace = true
+strum.workspace = true
+
+strum_macros.workspace = true
+chrono.workspace = true
+rand.workspace = true
+redis-macros.workspace = true
+num_enum.workspace = true
+
+hex.workspace = true
+sha2.workspace = true
+hmac.workspace = true
+hmac-sha1.workspace = true
+md5.workspace = true
+rsa.workspace = true
+
+base64.workspace = true
+serde_json.workspace = true
+async-graphql-value.workspace = true
+async-graphql-axum.workspace = true
+language-tags.workspace = true
+
+influxdb2.workspace = true
+influxdb2-structmap.workspace = true
+
+tonic.workspace = true
+prost.workspace = true
+
+utoipa = { workspace = true, features = ["axum_extras"] }
+utoipa-scalar = { workspace = true, features = ["axum"] }
+

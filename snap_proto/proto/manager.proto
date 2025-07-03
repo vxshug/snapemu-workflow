@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package manager;
+
+service Manager {
+  rpc Logs(LogRequest) returns (stream LogResponse) {}
+  rpc Download(DownloadMessage) returns (DownloadResponse) {}
+  rpc Config(GwConfigRequest) returns (GwConfig) {}
+  rpc UpdateConfig(UpdateConfigRequest) returns (GwConfig) {}
+}
+
+message LogRequest {}
+
+message LogResponse {
+  DeviceIdentity identity = 1;
+  LogType log_type = 2;
+  bytes payload = 3;
+}
+
+message DeviceIdentity {
+    uint64 id = 1;
+    uint64 eui = 2;
+}
+
+message DownloadMessage {
+  DeviceIdentity identity = 1;
+  DeviceType device_type = 2;
+  int32 port = 3;
+  bytes message = 4;
+}
+
+message DownloadResponse {
+  DeviceIdentity identity = 1;
+  ResultStatus result = 2;
+  string message = 3;
+}
+
+message GwConfigRequest {
+  uint64 user_id = 1;
+  DeviceIdentity identity = 2;
+}
+
+message UpdateConfigRequest {
+  uint64 user_id = 1;
+  DeviceIdentity identity = 2;
+  GwConfig config = 3;
+}
+
+message GwConfig {
+    optional string port_up = 1;
+    optional string port_up1 = 2;
+    optional string port_down = 3;
+    optional string port_down1 = 4;
+    optional string server_addr = 5;
+    optional string server_addr1 = 6;
+    optional string extra_server = 7;
+    optional string region = 8;
+    optional string subband = 9;
+    optional string mode = 10;
+    optional string basicstation_type = 11;
+    optional string basicstation_url = 12;
+    optional string basicstation_port = 13;
+    optional string trust_mode = 14;
+    optional string api_token = 15;
+    optional string cert = 16;
+    optional string client_cert = 17;
+}
+
+enum LogType {
+  LoRaGatewayStatus = 0;
+  LoRaNodeJoinRequest = 1;
+  LoRaNodeJoinAccept = 2;
+  LoRaNodeUplinkData = 3;
+  LoRaNodeDownLinkData = 4;
+}
+
+enum DeviceType {
+  LoRaGateway = 0;
+  LoRaNode = 1;
+  MQTT = 2;
+}
+
+enum ResultStatus {
+  OK = 0;
+  Decode = 1;
+  JS = 2;
+}

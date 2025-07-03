@@ -1,0 +1,43 @@
+FROM rust:slim AS builder
+ENV RUST_BACKTRACE 1
+RUN apt-get update && apt-get install -y perl cmake make g++ librdkafka-dev curl pkg-config libssl-dev protobuf-compiler git patch
+#RUN update-ca-certificates
+
+WORKDIR /usr/src/app
+
+# copy entire workspace
+COPY . .
+
+RUN cargo build --release
+
+
+FROM debian:stable-20230904-slim AS api
+WORKDIR /usr/src/app
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		ca-certificates \
+	; \
+	rm -rf /var/lib/apt/lists/*
+COPY --from=builder /lib/x86_64-linux-gnu/libcrypto.so.3 /lib/x86_64-linux-gnu/
+COPY --from=builder /lib/x86_64-linux-gnu/libssl.so.3 /lib/x86_64-linux-gnu/
+COPY --from=builder /usr/src/app/target/release/snap_api ./
+CMD [ "./snap_api" ]
+
+FROM debian:stable-20230904-slim AS manager
+WORKDIR /usr/src/app
+COPY --from=builder /lib/x86_64-linux-gnu/libcrypto.so.3 /lib/x86_64-linux-gnu/
+COPY --from=builder /lib/x86_64-linux-gnu/libssl.so.3 /lib/x86_64-linux-gnu/
+COPY --from=builder /usr/src/app/target/release/devices_manager ./
+CMD [ "./devices_manager" ]
+
+FROM debian:stable-20230904-slim AS lorawan-bridge
+WORKDIR /usr/src/app
+COPY --from=builder /lib/x86_64-linux-gnu/libcrypto.so.3 /lib/x86_64-linux-gnu/
+COPY --from=builder /lib/x86_64-linux-gnu/libssl.so.3 /lib/x86_64-linux-gnu/
+COPY --from=builder /usr/src/app/target/release/lorawan_bridge ./
+CMD [ "./lorawan_bridge" ]
+
+FROM postgres:15.4 AS db
+COPY ./snap.sql docker-entrypoint-initdb.d/
+EXPOSE 5432

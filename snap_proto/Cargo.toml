@@ -1,0 +1,12 @@
+[package]
+name = "snap_proto"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tonic.workspace = true
+prost.workspace = true
+serde = { workspace = true, features=["derive"]}
+
+[build-dependencies]
+tonic-build.workspace = true

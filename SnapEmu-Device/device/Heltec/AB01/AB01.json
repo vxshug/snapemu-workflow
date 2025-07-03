@@ -1,0 +1,9 @@
+{
+  "name": "AB01",
+  "picture": "ab01.webp",
+  "description": "HTCC-AB01 (V2) is based on ASR6052, the chip is already integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262.",
+  "demo": "https://docs.heltec.org/en/node/asr650x/htcc_ab01/index.html",
+  "manufacturer": "Heltec Automation",
+  "type": "Node",
+  "protocol": "LoRaWAN"
+}

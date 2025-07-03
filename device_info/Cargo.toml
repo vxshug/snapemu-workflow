@@ -1,0 +1,13 @@
+[package]
+name = "device_info"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+common_define.workspace = true
+redis = { workspace = true, features = ["tokio-comp"] }
+serde = { workspace = true, features=["derive"]}
+serde_json.workspace = true
+derive-new.workspace = true
+hash_name.workspace = true
+tracing.workspace = true

@@ -1,0 +1,16 @@
+[package]
+name = "snap_config"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+anyhow.workspace = true
+tracing-subscriber = { workspace = true, features = ["env-filter"] }
+async-trait.workspace = true
+config.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+thiserror.workspace = true

@@ -1,0 +1,86 @@
+name: Check
+on:
+  workflow_dispatch:
+  pull_request:
+env:
+  ALLOW_TYPE: "Node Gateway"
+  ALLOW_PROTOCOL: "LoRaWAN MQTT"
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check
+      run: |
+        function check_file() {
+          dirname=$(dirname $1)
+          name=$(jq -r .name $1)
+          picture=$(jq -r .picture $1)
+          description=$(jq -r .description $1)
+          demo=$(jq -r .demo $1)
+          manufacturer=$(jq -r .manufacturer $1)
+          type=$(jq -r .type $1)
+          protocol=$(jq -r .protocol $1)
+          type_flag=0
+          protocol_flag=0
+          
+          if [ "$name" == "null" ]; then
+            echo "device name not allow null"
+            exit 1
+          fi
+          if [ "$picture" == "null" ]; then
+            echo "device picture not allow null"
+            exit 1
+          fi
+          if [ ! -f $dirname/$picture ]; then
+            echo "device picture not exits. in $dirname/$picture"
+            exit 1
+          fi
+          if [ "$description" == "null" ]; then
+            echo "device description not allow null"
+            exit 1
+          fi
+          if [ "$demo" == "null" ]; then
+            echo "device demo not allow null"
+            exit 1
+          fi
+          if [ "$manufacturer" == "null" ]; then
+            echo "device manufacturer not allow null"
+            exit 1
+          fi
+          
+          for t in $ALLOW_TYPE; do
+            if [ "$type" == "$t" ]; then
+              type_flag=1
+              break
+            fi
+          done
+          if [ $type_flag -eq 0 ]; then
+            echo "Device type $type not allowed"
+            exit 1
+          fi
+          for t in $ALLOW_PROTOCOL; do
+            if [ "$protocol" == "$t" ]; then
+              protocol_flag=1
+              break
+            fi
+          done
+          if [ $protocol_flag -eq 0 ]; then
+            echo "Device protocol $protocol not allowed"
+            exit 1
+          fi
+        }
+        
+        for manufacturer_dir in device/*; do
+          if [ -d $manufacturer_dir ]; then
+            for device_dir in ${manufacturer_dir}/**; do
+              if [ -d $device_dir ]; then
+                for device_file in ${device_dir}/*.json; do
+                  echo "check $device_file"
+        	 check_file $device_file
+                done
+              fi
+            done
+          fi
+        done
+

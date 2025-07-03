@@ -1,0 +1,64 @@
+[package]
+name = "devices_manager"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+device_info.workspace = true
+bytes.workspace = true
+utils.workspace = true
+snap_config.workspace = true
+snap_model.workspace = true
+snap_proto.workspace = true
+common_define.workspace = true
+async-trait.workspace = true
+arc-swap.workspace = true
+x509-parser.workspace = true
+rustls-pemfile.workspace = true
+async-tungstenite = { workspace = true, features = ["tokio-rustls-native-certs"] }
+ws_stream_tungstenite = { workspace = true, features = ["tokio_io"] }
+parking_lot.workspace = true
+flume.workspace = true
+slab.workspace = true
+clap = { workspace = true, features = [ "derive", "env" ] }
+base64.workspace = true
+strum = { workspace = true, features = ["derive"] }
+lorawan.workspace = true
+tokio =  { workspace = true, features = ["full"]}
+tokio-stream = { workspace = true, features = ["sync"]}
+tokio-rustls.workspace = true
+tokio-util = { workspace = true, features = ["codec", "compat"] }
+redis = { workspace = true, features = ["tokio-comp"] }
+sea-orm = { workspace = true, features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros", "debug-print" ] }
+deadpool-redis.workspace = true
+deadpool.workspace = true
+redis-macros.workspace = true
+derive_more = { workspace = true, features = ["from"] }
+rquickjs = { workspace = true, features = ["parallel"]}
+serde = { workspace = true, features=["derive"]}
+serde_json.workspace = true
+generic-array.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+derive-new.workspace = true
+rumqttc.workspace = true
+influxdb2.workspace = true
+influxdb2-structmap.workspace = true
+influxdb2-derive.workspace = true
+num-traits.workspace = true
+
+aes.workspace = true
+cmac.workspace = true
+ctr.workspace = true
+const_format.workspace = true
+chrono.workspace = true
+hex.workspace = true
+rand.workspace = true
+once_cell.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+prost.workspace = true
+tonic.workspace = true

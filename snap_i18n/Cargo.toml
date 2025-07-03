@@ -1,0 +1,17 @@
+[package]
+name = "snap_i18n"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust-i18n.workspace = true
+quote = "1.0.31"
+syn = "2.0.32"
+anyhow = "1.0.86"
+serde_json = "1.0.95"
+serde_yaml = "0.8.26"
+toml = "0.7.8"
+regex = "1.9.1"
+proc-macro2 = "1.0.66"
+[lib]
+proc-macro = true
